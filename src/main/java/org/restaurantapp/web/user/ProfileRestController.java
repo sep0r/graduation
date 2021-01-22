@@ -9,10 +9,6 @@ import static org.restaurantapp.web.SecurityUtil.authUserId;
 @Controller
 public class ProfileRestController extends AbstractUserController {
 
-    public ProfileRestController(UserRepository repository) {
-        super(repository);
-    }
-
     public User get() {
         return super.get(authUserId());
     }

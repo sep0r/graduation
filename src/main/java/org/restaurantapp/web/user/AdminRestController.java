@@ -9,10 +9,6 @@ import java.util.List;
 @Controller
 public class AdminRestController extends AbstractUserController {
 
-    public AdminRestController(UserRepository repository) {
-        super(repository);
-    }
-
     @Override
     public List<User> getAll() {
         return super.getAll();
