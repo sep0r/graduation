@@ -22,10 +22,10 @@ public class Restaurant extends AbstractNamedEntity {
     @OrderBy("dateAdd DESC")
     private Set<Dish> menu;
 
-    protected Restaurant() {
+    public Restaurant() {
     }
 
-    protected Restaurant(Integer id, String name, String description) {
+    public Restaurant(Integer id, String name, String description) {
         super(id, name);
         this.description = description;
     }

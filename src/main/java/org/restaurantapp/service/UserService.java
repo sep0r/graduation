@@ -2,6 +2,7 @@ package org.restaurantapp.service;
 
 import org.restaurantapp.model.User;
 import org.restaurantapp.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,10 @@ import static org.restaurantapp.util.ValidationUtil.checkNotFoundWithId;
 public class UserService {
 
     private UserRepository repository;
+
+    public UserService(UserRepository repository) {
+        this.repository = repository;
+    }
 
     public User create(User user) {
         return repository.save(user);

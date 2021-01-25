@@ -2,7 +2,6 @@ package org.restaurantapp.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.hsqldb.View;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

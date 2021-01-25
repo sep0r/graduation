@@ -1,7 +1,6 @@
 package org.restaurantapp.web.user;
 
 import org.restaurantapp.model.User;
-import org.restaurantapp.repository.UserRepository;
 import org.springframework.stereotype.Controller;
 
 import static org.restaurantapp.web.SecurityUtil.authUserId;

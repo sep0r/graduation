@@ -1,7 +1,6 @@
 package org.restaurantapp.web.user;
 
 import org.restaurantapp.model.User;
-import org.restaurantapp.repository.UserRepository;
 import org.restaurantapp.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
