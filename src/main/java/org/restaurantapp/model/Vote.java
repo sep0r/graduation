@@ -2,7 +2,6 @@ package org.restaurantapp.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -29,13 +28,6 @@ public class Vote extends AbstractBaseEntity {
     private User user;
 
     public Vote() {
-    }
-
-    public Vote(Integer id, @NotNull LocalDateTime date, @NotNull Restaurant restaurant, @NotNull User user) {
-        super(id);
-        this.date = date;
-        this.restaurant = restaurant;
-        this.user = user;
     }
 
     public Vote(Integer id, LocalDateTime date) {

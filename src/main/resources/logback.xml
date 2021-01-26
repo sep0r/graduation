@@ -20,6 +20,8 @@
         </encoder>
     </appender>
 
+    <logger name="org.postgresql" level="debug"/>
+    <logger name="org.springframework.jdbc" level="info"/>
     <logger name="org.restaurantapp" level="debug"/>
 
     <root level="info">
