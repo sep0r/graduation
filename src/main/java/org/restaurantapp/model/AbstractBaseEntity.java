@@ -1,6 +1,7 @@
 package org.restaurantapp.model;
 
 import org.springframework.data.domain.Persistable;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 
@@ -25,10 +26,18 @@ public abstract class AbstractBaseEntity implements Persistable<Integer> {
         this.id = id;
     }
 
+    // doesn't work for hibernate lazy proxy
+    public int id() {
+        Assert.notNull(id, "Entity must have id");
+        return id;
+    }
+
+    @Override
     public Integer getId() {
         return id;
     }
 
+    @Override
     public boolean isNew() {
         return this.id == null;
     }

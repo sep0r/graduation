@@ -29,23 +29,23 @@ public class VoteServiceTest {
     private VoteService service;
 
     @Test
-    public void delete() throws Exception {
+    public void delete() {
         service.delete(VOTE1_ID, USER_ID);
         assertThrows(NotFoundException.class, () -> service.get(VOTE1_ID, USER_ID));
     }
 
     @Test
-    public void deleteNotFound() throws Exception {
+    public void deleteNotFound() {
         assertThrows(NotFoundException.class, () -> service.delete(NOT_FOUND, USER_ID));
     }
 
     @Test
-    public void deleteNotOwn() throws Exception {
+    public void deleteNotOwn() {
         assertThrows(NotFoundException.class, () -> service.delete(VOTE1_ID, ADMIN_ID));
     }
 
     @Test
-    public void create() throws Exception {
+    public void create() {
         Vote created = service.save(VoteTestData.getNew(), USER_ID);
         Integer newId = created.getId();
         Vote newVote = VoteTestData.getNew();
@@ -55,30 +55,30 @@ public class VoteServiceTest {
     }
 
     @Test
-    public void duplicateDateTimeCreate() throws Exception {
+    public void duplicateDateTimeCreate() {
         assertThrows(DataAccessException.class, () ->
                 service.save(new Vote(null, vote1.getDate()), USER_ID));
     }
 
 
     @Test
-    public void get() throws Exception {
+    public void get() {
         Vote actual = service.get(ADMIN_VOTE_ID, ADMIN_ID);
-        VOTE_MATCHER.assertMatch(actual, admin_meal1);
+        VOTE_MATCHER.assertMatch(actual, adminMeal1);
     }
 
     @Test
-    public void getNotFound() throws Exception {
+    public void getNotFound() {
         assertThrows(NotFoundException.class, () -> service.get(NOT_FOUND, USER_ID));
     }
 
     @Test
-    public void getNotOwn() throws Exception {
+    public void getNotOwn() {
         assertThrows(NotFoundException.class, () -> service.get(VOTE1_ID, ADMIN_ID));
     }
 
     @Test
-    public void getAll() throws Exception {
+    public void getAll() {
         VOTE_MATCHER.assertMatch(service.getAll(USER_ID), votes);
     }
 }
