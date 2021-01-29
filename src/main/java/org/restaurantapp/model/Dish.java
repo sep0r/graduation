@@ -15,22 +15,17 @@ public class Dish extends AbstractNamedEntity {
     @NotNull
     private int price;
 
-    @Column(name = "date_add", nullable = false)
-    @NotNull
-    private LocalDate dateAdd;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rest_id", nullable = false)
+    @JoinColumn(name = "menu_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Restaurant restaurant;
+    private Menu menu;
 
     public Dish() {
     }
 
-    public Dish(Integer id, String name, int price, LocalDate dateAdd) {
+    public Dish(Integer id, String name, int price) {
         super(id, name);
         this.price = price;
-        this.dateAdd = dateAdd;
     }
 
     public int getPrice() {
@@ -41,19 +36,11 @@ public class Dish extends AbstractNamedEntity {
         this.price = price;
     }
 
-    public LocalDate getDateAdd() {
-        return dateAdd;
+    public Menu getMenu() {
+        return menu;
     }
 
-    public void setDateAdd(LocalDate dateAdd) {
-        this.dateAdd = dateAdd;
-    }
-
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
+    public void setMenu(Menu menu) {
+        this.menu = menu;
     }
 }

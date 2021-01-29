@@ -38,9 +38,9 @@ public class User extends AbstractNamedEntity {
     @BatchSize(size = 200)
     private Set<Role> roles;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    @OrderBy("date DESC")
-    private List<Vote>votes;
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+//    @OrderBy("date DESC")
+//    private List<Vote>votes;
 
     public User() {
     }
@@ -51,6 +51,10 @@ public class User extends AbstractNamedEntity {
 
     public User(Integer id, String name, String email, String password, Role role, Role... roles) {
         this(id, name, email, password, new Date(), EnumSet.of(role, roles));
+    }
+    //Временный
+    public User(Integer id, String name, String email, String password) {
+        this(id, name, email, password, new Date(),null);
     }
 
     public User(Integer id, String name, String email, String password, Date registered, Collection<Role> roles) {
@@ -93,13 +97,13 @@ public class User extends AbstractNamedEntity {
         this.roles = CollectionUtils.isEmpty(roles) ? EnumSet.noneOf(Role.class) : EnumSet.copyOf(roles);
     }
 
-    public List<Vote> getVotes() {
-        return votes;
-    }
-
-    public void setVotes(List<Vote> votes) {
-        this.votes = votes;
-    }
+//    public List<Vote> getVotes() {
+//        return votes;
+//    }
+//
+//    public void setVotes(List<Vote> votes) {
+//        this.votes = votes;
+//    }
 
 
     @Override

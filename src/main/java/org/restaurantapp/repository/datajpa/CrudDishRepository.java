@@ -1,6 +1,6 @@
 package org.restaurantapp.repository.datajpa;
 
-import org.restaurantapp.model.Vote;
+import org.restaurantapp.model.Dish;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -9,15 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
 @Transactional(readOnly = true)
-public interface CrudVoteRepository extends JpaRepository<Vote, Integer> {
-
-    @Modifying
+public interface CrudDishRepository extends JpaRepository<Dish,Integer> {
     @Transactional
-    @Query("DELETE FROM Vote v WHERE v.id=:id AND v.user.id=:userId")
-    int delete(@Param("id") int id, @Param("userId") int userId);
+    @Modifying
+    @Query("DELETE FROM Dish d WHERE d.id=:id")
+    int delete(@Param("id") int id);
 
-    @Query("SELECT v FROM Vote v WHERE v.user.id=:userId ORDER BY v.date DESC")
-    List<Vote> getAll(@Param("userId") int userId);
+    @Query("SELECT d FROM Dish d WHERE d.menu.id=?1")
+    List<Dish> getAllByMenu(int menuId);
 }

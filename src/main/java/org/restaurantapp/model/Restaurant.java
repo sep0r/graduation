@@ -3,6 +3,7 @@ package org.restaurantapp.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -14,15 +15,21 @@ public class Restaurant extends AbstractNamedEntity {
     @Size(min = 2, max = 120)
     private String description;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("date DESC")
     private Set<Vote> votes;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
-    @OrderBy("dateAdd DESC")
-    private Set<Dish> menu;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    @OrderBy("date DESC")
+    private Set<Menu> menu;
 
     public Restaurant() {
+    }
+
+    public Restaurant(Integer id, String name, String description, Set<Menu> menu) {
+        super(id, name);
+        this.description = description;
+        setMenu(menu);
     }
 
     public Restaurant(Integer id, String name, String description) {
@@ -46,11 +53,11 @@ public class Restaurant extends AbstractNamedEntity {
         this.votes = votes;
     }
 
-    public Set<Dish> getMenu() {
+    public Set<Menu> getMenu() {
         return menu;
     }
 
-    public void setMenu(Set<Dish> menu) {
+    public void setMenu(Set<Menu> menu) {
         this.menu = menu;
     }
 
@@ -58,7 +65,7 @@ public class Restaurant extends AbstractNamedEntity {
     public String toString() {
         return "Restaurant{" +
                 "description='" + description + '\'' +
-                ", votes=" + votes +
+//                ", votes=" + votes +
                 ", menu=" + menu +
                 '}';
     }

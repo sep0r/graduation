@@ -3,15 +3,17 @@ package org.restaurantapp.repository;
 import org.restaurantapp.model.Vote;
 
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.List;
 
 public interface VoteRepository {
-    Vote save(Vote vote, int userId);
+    Vote save(Vote vote, int userId,int restId);
+
+    boolean delete(int id, int userId);
 
     boolean delete(int userId, LocalDate date);
 
-    Vote get(int id, LocalDate date);
+    Vote get(int id, int userId);
 
-    Collection<Vote> getAll();
+    List<Vote> getAll(int userId);
 
 }

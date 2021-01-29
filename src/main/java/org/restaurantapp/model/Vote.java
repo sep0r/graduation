@@ -35,6 +35,7 @@ public class Vote extends AbstractBaseEntity {
         this.date = date;
     }
 
+
     public LocalDateTime getDate() {
         return date;
     }

@@ -1,15 +1,16 @@
 package org.restaurantapp.service;
 
 import org.restaurantapp.model.Vote;
-import org.restaurantapp.repository.UserRepository;
 import org.restaurantapp.repository.VoteRepository;
 import org.restaurantapp.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
-import java.time.LocalDate;
 import java.util.List;
+
+import static org.restaurantapp.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class VoteService {
@@ -17,30 +18,26 @@ public class VoteService {
     @Autowired
     private VoteRepository voteRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
     @Transactional
-    public Vote save(Vote userId, int restaurantId) {
-        return null;
+    public Vote save(Vote vote, int userId, int restId) {
+        Assert.notNull(vote, "vote must not be null");
+        return voteRepository.save(vote, userId, restId);
     }
 
     void delete(int id, int userId) throws NotFoundException {
+        checkNotFoundWithId(voteRepository.delete(id, userId), id);
     }
 
     Vote get(int id, int userId) throws NotFoundException {
-        return null;
+        return checkNotFoundWithId(voteRepository.get(id, userId), id);
     }
 
     List<Vote> getAll(int userId) {
-        return null;
+        return voteRepository.getAll(userId);
     }
 
-    Vote getVote(int userId, LocalDate date) {
-        return null;
-    }
-
-    Vote update(Vote vote, int restaurantId) throws NotFoundException {
-        return null;
+    void update(Vote vote, int userId, int restId) throws NotFoundException {
+        Assert.notNull(vote, "vote must not be null");
+        voteRepository.save(vote, userId, restId);
     }
 }
