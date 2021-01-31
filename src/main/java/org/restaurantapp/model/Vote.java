@@ -30,6 +30,10 @@ public class Vote extends AbstractBaseEntity {
     public Vote() {
     }
 
+    public Vote(LocalDateTime date) {
+        this(null, date);
+    }
+
     public Vote(Integer id, LocalDateTime date) {
         super(id);
         this.date = date;

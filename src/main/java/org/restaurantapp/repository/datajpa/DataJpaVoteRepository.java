@@ -13,25 +13,15 @@ import java.util.List;
 @Repository
 public class DataJpaVoteRepository implements VoteRepository {
     private final CrudVoteRepository crudVoteRepository;
-    private final CrudUserRepository crudUserRepository;
-    private final CrudRestaurantRepository crudRestaurantRepository;
 
-    public DataJpaVoteRepository(CrudVoteRepository crudVoteRepository,
-                                 CrudUserRepository crudUserRepository,
-                                 CrudRestaurantRepository crudRestaurantRepository) {
+
+    public DataJpaVoteRepository(CrudVoteRepository crudVoteRepository) {
         this.crudVoteRepository = crudVoteRepository;
-        this.crudUserRepository = crudUserRepository;
-        this.crudRestaurantRepository = crudRestaurantRepository;
     }
 
     @Override
     @Transactional
-    public Vote save(Vote vote, int userId, int restId) {
-        if (!vote.isNew() && get(vote.getId(), userId) == null) {
-            return null;
-        }
-        vote.setUser(crudUserRepository.getOne(userId));
-        vote.setRestaurant(crudRestaurantRepository.getOne(restId));
+    public Vote save(Vote vote) {
         return crudVoteRepository.save(vote);
     }
 
@@ -41,15 +31,8 @@ public class DataJpaVoteRepository implements VoteRepository {
     }
 
     @Override
-    public boolean delete(int userId, LocalDate date) {
-        return false;
-    }
-
-    @Override
-    public Vote get(int id, int userId) {
-        return crudVoteRepository.findById(id)
-                .filter(vote -> vote.getUser().getId() == userId)
-                .orElse(null);
+    public Vote get(int id) {
+        return crudVoteRepository.findById(id).orElse(null);
     }
 
     @Override

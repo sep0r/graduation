@@ -6,14 +6,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface VoteRepository {
-    Vote save(Vote vote, int userId,int restId);
+    Vote save(Vote vote);
 
     boolean delete(int id, int userId);
 
-    boolean delete(int userId, LocalDate date);
-
-    Vote get(int id, int userId);
+    Vote get(int id);
 
     List<Vote> getAll(int userId);
-
 }
