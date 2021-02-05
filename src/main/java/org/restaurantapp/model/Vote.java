@@ -1,7 +1,10 @@
 package org.restaurantapp.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.restaurantapp.util.TimeUtil;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,17 +16,20 @@ public class Vote extends AbstractBaseEntity {
 
     @Column(name = "date", nullable = false)
     @NotNull
+    @DateTimeFormat(pattern = TimeUtil.DATE_TIME_PATTERN)
     private LocalDateTime date;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurants_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonBackReference
     @NotNull
     private Restaurant restaurant;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonBackReference
     @NotNull
     private User user;
 

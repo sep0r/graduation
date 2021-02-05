@@ -10,6 +10,7 @@ public class TimeUtil {
     }
 
     public static final LocalTime VOTE_DEADLINE_TIME = LocalTime.of(11,0,0);
+    public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm";
 
     public static void checkVote() {
         if (LocalTime.now().isAfter(getVoteDeadlineTime())) {

@@ -1,5 +1,7 @@
 package org.restaurantapp.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.BatchSize;
 import org.springframework.util.CollectionUtils;
 
@@ -23,10 +25,12 @@ public class User extends AbstractNamedEntity {
     @Column(name = "password", nullable = false)
     @NotBlank
     @Size(min = 5, max = 100)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Date registered = new Date();
 
     @Enumerated(EnumType.STRING)
@@ -39,23 +43,23 @@ public class User extends AbstractNamedEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     @OrderBy("date DESC")
-//    @JsonIgnore
+    @JsonManagedReference
     private List<Vote>votes;
 
     public User() {
     }
 
     public User(User u) {
-        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.getRegistered(), u.getRoles());
+        this(u.getId(), u.getName(), u.getEmail().toLowerCase(), u.getPassword(), u.getRegistered(), u.getRoles());
     }
 
     public User(Integer id, String name, String email, String password, Role role, Role... roles) {
         this(id, name, email, password, new Date(), EnumSet.of(role, roles));
     }
-//    //Временный
-//    public User(Integer id, String name, String email, String password) {
-//        this(id, name, email, password, new Date(),null);
-//    }
+
+    public User(Integer id, String name, String email, String password) {
+        this(id, name, email, password, new Date(),null);
+    }
 
     public User(Integer id, String name, String email, String password, Date registered, Collection<Role> roles) {
         super(id, name);

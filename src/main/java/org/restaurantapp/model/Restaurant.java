@@ -1,9 +1,10 @@
 package org.restaurantapp.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -17,10 +18,12 @@ public class Restaurant extends AbstractNamedEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("date DESC")
+    @JsonManagedReference
     private Set<Vote> votes;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("date DESC")
+    @JsonManagedReference
     private Set<Menu> menu;
 
     public Restaurant() {
