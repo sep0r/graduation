@@ -41,4 +41,9 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
     public boolean delete(int id) {
         return crudRepository.delete(id) != 0;
     }
+
+    @Override
+    public List<Restaurant> getAllWithMenu() {
+        return crudRepository.getAllWithMenu();
+    }
 }

@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface DishRepository {
 
-    Dish save(Dish dish,int menuId);
+    Dish save(Dish dish, int menuId);
 
-    boolean delete(int id);
+    boolean delete(int id, int menuId);
 
-    Dish get(int id);
+    Dish get(int id, int menuId);
 
     List<Dish> getAllByMenu(int menuId);
 }

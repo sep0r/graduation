@@ -7,17 +7,13 @@ import java.util.List;
 
 public interface MenuRepository {
 
-    Menu save(Menu menu, int restId, LocalDate date);
+    Menu save(Menu menu, int restId);
 
-    Menu get(int id);
+    Menu get(int id, int restId);
 
-    List<Menu> getAll();
+    List<Menu> getAllByDate(LocalDate date);
 
-//    List<Menu> getAllForDate(LocalDate date);
-//
-//    List<Menu> getByRestaurantId(int restaurant_id);
-//
-//    List<Menu> getByRestaurantIdAndDate(int restaurant_id, LocalDate date);
+    List<Menu> getAllByRestaurantId(int restaurantId);
 
     boolean delete(int id);
 }

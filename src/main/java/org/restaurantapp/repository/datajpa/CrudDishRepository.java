@@ -10,12 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Transactional(readOnly = true)
-public interface CrudDishRepository extends JpaRepository<Dish,Integer> {
-    @Transactional
-    @Modifying
-    @Query("DELETE FROM Dish d WHERE d.id=:id")
-    int delete(@Param("id") int id);
+public interface CrudDishRepository extends JpaRepository<Dish, Integer> {
 
-    @Query("SELECT d FROM Dish d WHERE d.menu.id=?1")
-    List<Dish> getAllByMenu(int menuId);
+    @Query("SELECT d FROM Dish d WHERE d.menu.id=:menuId")
+    List<Dish> getAllByMenu(@Param("menuId") int menuId);
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Dish d WHERE d.id=:id AND d.menu.id=:menuId")
+    int delete(@Param("id") int id, @Param("menuId") int menuId);
 }

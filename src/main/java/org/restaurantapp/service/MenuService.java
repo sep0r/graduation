@@ -1,13 +1,9 @@
 package org.restaurantapp.service;
 
 import org.restaurantapp.model.Menu;
-import org.restaurantapp.model.Restaurant;
-import org.restaurantapp.model.User;
 import org.restaurantapp.repository.MenuRepository;
-import org.restaurantapp.repository.UserRepository;
 import org.restaurantapp.util.exception.NotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
@@ -24,30 +20,33 @@ public class MenuService {
         this.menuRepository = menuRepository;
     }
 
-    public Menu create(Menu menu, int restId, LocalDate date) {
-        Assert.notNull(menu, "user must not be null");
-        return menuRepository.save(menu, restId, date);
+    public Menu create(Menu menu, int restId) {
+        Assert.notNull(menu, "menu must not be null");
+        if (!menu.isNew() && get(menu.getId(), restId) == null) {
+            return null;
+        }
+        return menuRepository.save(menu, restId);
     }
 
-    public Menu get(int id) throws NotFoundException {
-        return checkNotFoundWithId(menuRepository.get(id), id);
+    public Menu get(int id, int restId) throws NotFoundException {
+        return checkNotFoundWithId(menuRepository.get(id, restId), id);
     }
 
-    public List<Menu> getAll() {
-        return menuRepository.getAll();
+    public List<Menu> getAllByDate(LocalDate date) {
+        return menuRepository.getAllByDate(date);
     }
 
-//    List<Menu> getAllForDate(LocalDate date) {
-//        return menuRepository.getAllForDate(date);
-//    }
-//
-//    List<Menu> getByRestaurantId(int restaurant_id) {
-//        return menuRepository.getByRestaurantId(restaurant_id);
-//    }
-//
-//    List<Menu> getByRestaurantIdAndDate(int restaurant_id, LocalDate date) {
-//        return menuRepository.getByRestaurantIdAndDate(restaurant_id, date);
-//    }
+    public List<Menu> getAllByRestaurantId(int restaurantId) {
+        return menuRepository.getAllByRestaurantId(restaurantId);
+    }
+
+    public void update(Menu menu, int restId) {
+        Assert.notNull(menu, "menu must not be null");
+        Menu updated = get(menu.getId(), restId);
+        if (updated != null) {
+            menuRepository.save(menu, restId);
+        }
+    }
 
     public void delete(int id) {
         checkNotFoundWithId(menuRepository.delete(id), id);

@@ -2,6 +2,7 @@ package org.restaurantapp.service;
 
 import org.restaurantapp.model.Dish;
 import org.restaurantapp.repository.DishRepository;
+import org.restaurantapp.util.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -26,16 +27,15 @@ public class DishService {
         return dishRepository.save(dish, menuId);
     }
 
-    public void delete(int id) {
-        checkNotFoundWithId(dishRepository.delete(id), id);
+    public Dish get(int id, int menuId) throws NotFoundException {
+        return checkNotFoundWithId(dishRepository.get(id, menuId), id);
     }
 
-    public Dish get(int id, int menuId) {
-        Dish dish = dishRepository.get(id);
-        return checkNotFoundWithId(dish != null && dish.getMenu().getId() == menuId ? dish : null, id);
+    public void delete(int id, int menuId) {
+        checkNotFoundWithId(dishRepository.delete(id, menuId), id);
     }
 
-    public List<Dish> getAllByMenu(int menu_id) {
-        return dishRepository.getAllByMenu(menu_id);
+    public List<Dish> getAllByMenu(int menuId) {
+        return dishRepository.getAllByMenu(menuId);
     }
 }

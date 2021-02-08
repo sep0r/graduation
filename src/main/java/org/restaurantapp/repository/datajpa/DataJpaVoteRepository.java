@@ -30,13 +30,25 @@ public class DataJpaVoteRepository implements VoteRepository {
         return crudVoteRepository.delete(id, userId) != 0;
     }
 
+//    @Override
+//    public Vote getResultByDate(LocalDate date) {
+//        return crudVoteRepository.getResultByDate(date);
+//    }
+
     @Override
-    public Vote get(int id) {
-        return crudVoteRepository.findById(id).orElse(null);
+    public Vote get(int userId, LocalDate date) {
+        return crudVoteRepository.get(userId, date);
     }
 
     @Override
-    public List<Vote> getAll(int userId) {
-        return crudVoteRepository.getAll(userId);
+    public Vote get(int id, int userId) {
+        return crudVoteRepository.findById(id)
+                .filter(vote-> vote.getUser().getId() == userId)
+                .orElse(null);
+    }
+
+    @Override
+    public List<Vote> getAllForRestaurantByDate(int restId, LocalDate date) {
+        return crudVoteRepository.getAllForRestaurantByDate(restId, date);
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "votes")
@@ -16,8 +16,8 @@ public class Vote extends AbstractBaseEntity {
 
     @Column(name = "date", nullable = false)
     @NotNull
-    @DateTimeFormat(pattern = TimeUtil.DATE_TIME_PATTERN)
-    private LocalDateTime date;
+    @DateTimeFormat(pattern = TimeUtil.DATE_PATTERN)
+    private LocalDate date;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurants_id", nullable = false)
@@ -36,21 +36,21 @@ public class Vote extends AbstractBaseEntity {
     public Vote() {
     }
 
-    public Vote(LocalDateTime date) {
+    public Vote(LocalDate date) {
         this(null, date);
     }
 
-    public Vote(Integer id, LocalDateTime date) {
+    public Vote(Integer id, LocalDate date) {
         super(id);
         this.date = date;
     }
 
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

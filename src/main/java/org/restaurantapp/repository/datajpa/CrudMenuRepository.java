@@ -1,7 +1,6 @@
 package org.restaurantapp.repository.datajpa;
 
 import org.restaurantapp.model.Menu;
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,18 +11,15 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Transactional(readOnly = true)
-public interface CrudMenuRepository extends JpaRepository<Menu,Integer> {
+public interface CrudMenuRepository extends JpaRepository<Menu, Integer> {
     @Transactional
     @Modifying
     @Query("DELETE FROM Menu m WHERE m.id=:id")
     int delete(@Param("id") int id);
 
-//    @EntityGraph(attributePaths = {"restaurant", "dishes"}, type = EntityGraph.EntityGraphType.LOAD)
-//    List<Menu> getByRestaurantId(int restaurantId);
-//
-//    @EntityGraph(attributePaths = {"restaurant", "dishes"}, type = EntityGraph.EntityGraphType.LOAD)
-//    List<Menu> getByRestaurantIdAndDate(int restaurantId, LocalDate date);
-//
-//    @EntityGraph(attributePaths = {"restaurant", "dishes"}, type = EntityGraph.EntityGraphType.LOAD)
-//    List<Menu> getAllForDate(LocalDate date);
+    @Query("SELECT m FROM Menu m WHERE m.date=:date")
+    List<Menu> getAllByDate(@Param("date") LocalDate date);
+
+    @Query("SELECT m FROM Menu m WHERE m.restaurant.id=:restaurantId")
+    List<Menu> getAllByRestaurantId(@Param("restaurantId") int restaurantId);
 }

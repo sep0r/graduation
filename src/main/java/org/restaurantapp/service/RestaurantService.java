@@ -5,7 +5,6 @@ import org.restaurantapp.model.Restaurant;
 import org.restaurantapp.repository.RestaurantRepository;
 import org.restaurantapp.util.exception.NotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
@@ -34,6 +33,10 @@ public class RestaurantService {
         return checkNotFoundWithId(restaurantRepository.get(id), id);
     }
 
+    public Restaurant getWithMenu(int id) throws NotFoundException {
+        return checkNotFoundWithId(restaurantRepository.getWithMenu(id), id);
+    }
+
     public List<Restaurant> getAll() {
         return restaurantRepository.getAll();
     }
@@ -41,5 +44,9 @@ public class RestaurantService {
     public void update(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
         restaurantRepository.save(restaurant);
+    }
+
+    public List<Restaurant> getAllWithMenu() {
+        return restaurantRepository.getAllWithMenu();
     }
 }

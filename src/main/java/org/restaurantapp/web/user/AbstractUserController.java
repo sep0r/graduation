@@ -47,4 +47,9 @@ public abstract class AbstractUserController {
         log.info("getByEmail {}", email);
         return service.getByEmail(email);
     }
+
+    protected User getWithVotes(int id) {
+        log.info("getWithVotes {}", id);
+        return service.getWithVotes(id);
+    }
 }

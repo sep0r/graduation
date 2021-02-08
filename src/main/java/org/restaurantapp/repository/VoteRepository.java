@@ -6,11 +6,17 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface VoteRepository {
+
     Vote save(Vote vote);
 
     boolean delete(int id, int userId);
 
-    Vote get(int id);
+//    Vote getResultByDate(LocalDate date);
 
-    List<Vote> getAll(int userId);
+    Vote get(int id, int userId);
+
+    Vote get(int userId, LocalDate date);
+
+    List<Vote> getAllForRestaurantByDate(int restId, LocalDate date);
+
 }
