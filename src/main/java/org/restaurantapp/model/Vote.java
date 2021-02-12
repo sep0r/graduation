@@ -22,14 +22,14 @@ public class Vote extends AbstractBaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurants_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonBackReference
+    @JsonBackReference(value = "rest-votes")
     @NotNull
     private Restaurant restaurant;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonBackReference
+    @JsonBackReference(value = "user-votes")
     @NotNull
     private User user;
 
@@ -44,7 +44,6 @@ public class Vote extends AbstractBaseEntity {
         super(id);
         this.date = date;
     }
-
 
     public LocalDate getDate() {
         return date;
@@ -73,8 +72,9 @@ public class Vote extends AbstractBaseEntity {
     @Override
     public String toString() {
         return "Vote{" +
-                " id=" + getId() +
-                " date=" + date +
+                "date=" + date +
+                ", restaurant=" + restaurant +
+                ", user=" + user +
                 '}';
     }
 }

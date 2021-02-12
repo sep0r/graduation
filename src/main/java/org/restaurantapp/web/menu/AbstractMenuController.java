@@ -47,5 +47,8 @@ public abstract class AbstractMenuController {
         service.delete(id);
     }
 
-
+    public void update(Menu menu, int restId) {
+        log.info("update menu " + menu.getId());
+        service.update(menu, restId);
+    }
 }

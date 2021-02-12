@@ -23,7 +23,6 @@ public class DataJpaMenuRepository implements MenuRepository {
     @Transactional
     public Menu save(Menu menu, int restId) {
         menu.setRestaurant(crudRestaurantRepository.getOne(restId));
-//        menu.setDate(date);
         return crudRepository.save(menu);
     }
 
@@ -32,6 +31,11 @@ public class DataJpaMenuRepository implements MenuRepository {
         return crudRepository.findById(id)
                 .filter(menu -> menu.getRestaurant().getId() == restId)
                 .orElse(null);
+    }
+
+    @Override
+    public Menu get( LocalDate date, int restId) {
+        return crudRepository.get(date,restId);
     }
 
     @Override

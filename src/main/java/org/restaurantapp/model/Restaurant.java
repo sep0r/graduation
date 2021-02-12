@@ -1,6 +1,5 @@
 package org.restaurantapp.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -20,14 +19,12 @@ public class Restaurant extends AbstractNamedEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("date DESC")
-    @JsonManagedReference
-    @JsonIgnore
+    @JsonManagedReference(value = "rest-votes")
     private List<Vote> votes;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("date DESC")
-    @JsonManagedReference
-//    @JsonIgnore
+    @JsonManagedReference(value = "rest-menu")
     private Set<Menu> menu;
 
     public Restaurant() {

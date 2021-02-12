@@ -3,6 +3,7 @@ package org.restaurantapp.repository.datajpa;
 
 import org.restaurantapp.model.Vote;
 import org.restaurantapp.repository.VoteRepository;
+import org.restaurantapp.to.VoteTo;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -30,10 +31,10 @@ public class DataJpaVoteRepository implements VoteRepository {
         return crudVoteRepository.delete(id, userId) != 0;
     }
 
-//    @Override
-//    public Vote getResultByDate(LocalDate date) {
-//        return crudVoteRepository.getResultByDate(date);
-//    }
+    @Override
+    public List<VoteTo> getResultByDate(LocalDate date) {
+        return crudVoteRepository.getResultByDate(date);
+    }
 
     @Override
     public Vote get(int userId, LocalDate date) {
@@ -48,7 +49,7 @@ public class DataJpaVoteRepository implements VoteRepository {
     }
 
     @Override
-    public List<Vote> getAllForRestaurantByDate(int restId, LocalDate date) {
-        return crudVoteRepository.getAllForRestaurantByDate(restId, date);
+    public List<VoteTo> getNumberOfVotesForRestaurantsByDate( LocalDate date) {
+        return crudVoteRepository.getNumberOfVotesForRestaurantsByDate( date);
     }
 }

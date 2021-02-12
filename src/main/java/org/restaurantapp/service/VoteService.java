@@ -4,6 +4,7 @@ import org.restaurantapp.model.Vote;
 import org.restaurantapp.repository.VoteRepository;
 import org.restaurantapp.repository.datajpa.CrudRestaurantRepository;
 import org.restaurantapp.repository.datajpa.CrudUserRepository;
+import org.restaurantapp.to.VoteTo;
 import org.restaurantapp.util.TimeUtil;
 import org.restaurantapp.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +39,9 @@ public class VoteService {
         checkNotFoundWithId(voteRepository.delete(id, userId), id);
     }
 
-//    public Vote getResultByDate(LocalDate date) {
-//        return voteRepository.getResultByDate(date);
-//    }
+    public List<VoteTo> getResultByDate(LocalDate date) {
+        return voteRepository.getResultByDate(date);
+    }
 
     public Vote get(int userId, LocalDate date) throws NotFoundException {
         return voteRepository.get(userId, date);
@@ -50,8 +51,8 @@ public class VoteService {
         return checkNotFoundWithId(voteRepository.get(id, userId), id);
     }
 
-    public List<Vote> getAllForRestaurantByDate(int restId, LocalDate date) {
-        return voteRepository.getAllForRestaurantByDate(restId, date);
+    public List<VoteTo> getNumberOfVotesForRestaurantsByDate(LocalDate date) {
+        return voteRepository.getNumberOfVotesForRestaurantsByDate( date);
     }
 
     public Vote update(Vote vote, int restId) throws NotFoundException {

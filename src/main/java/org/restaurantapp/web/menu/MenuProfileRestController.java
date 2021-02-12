@@ -22,14 +22,19 @@ public class MenuProfileRestController extends AbstractMenuController {
         return super.getAllByDate(date);
     }
 
+    @GetMapping(value ="/today")
+    public List<Menu> getAllToday() {
+        return super.getAllByDate(LocalDate.now());
+    }
+
     @Override
-    @GetMapping(value ="/menus/restaurant/{restId}")
+    @GetMapping(value ="/for/{restId}")
     public List<Menu> getAllByRestaurantId(@PathVariable("restId") int restId) {
         return super.getAllByRestaurantId(restId);
     }
 
     @Override
-    @GetMapping(value ="/{id}/restaurant/{restId}")
+    @GetMapping(value ="/{id}/for/{restId}")
     public Menu get(@PathVariable("id") int id, @PathVariable("restId") int restId) {
         return super.get(id, restId);
     }

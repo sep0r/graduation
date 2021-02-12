@@ -1,12 +1,12 @@
 package org.restaurantapp.web.menu;
 
 import org.restaurantapp.model.Menu;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
@@ -15,11 +15,10 @@ import java.util.List;
 @RequestMapping(value = MenuAdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class MenuAdminRestController extends AbstractMenuController {
 
-    public static final String REST_URL = "/rest/admin/restaurants/{restId}/menu";
+    public static final String REST_URL = "/rest/admin/restaurants/menu";
 
-    //broken
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Menu> createWithLocation(@Valid @RequestBody Menu menu,
+    @PostMapping(value = "/{restId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Menu> createWithLocation(@RequestBody Menu menu,
                                                    @PathVariable("restId") int restId) {
         Menu created = super.create(menu, restId);
 
@@ -31,23 +30,20 @@ public class MenuAdminRestController extends AbstractMenuController {
     }
 
     @Override
-//    @GetMapping(value ="/{id}/restaurant/{restId}")
-    @GetMapping(value ="/{id}")
+    @GetMapping(value = "/{id}/for/{restId}")
     public Menu get(@PathVariable("id") int id, @PathVariable("restId") int restId) {
         return super.get(id, restId);
     }
 
     @Override
-    @GetMapping(value ="/bydate")
-    public List<Menu> getAllByDate(@RequestParam(value = "date", required = false) LocalDate date) {
-        log.info("get all by date {} ",date);
+    @GetMapping(value = "/bydate")
+    public List<Menu> getAllByDate(@RequestParam(value = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return super.getAllByDate(date);
     }
 
     @Override
-    @GetMapping(value ="/menus/restaurant/{restId}")
+    @GetMapping(value = "/{restId}")
     public List<Menu> getAllByRestaurantId(@PathVariable("restId") int restId) {
-        log.info("get all for restaurant {} ", restId);
         return super.getAllByRestaurantId(restId);
     }
 
@@ -57,5 +53,9 @@ public class MenuAdminRestController extends AbstractMenuController {
         super.delete(id);
     }
 
-    //update?
+    @Override
+    @PutMapping(value = "/{restId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void update(@RequestBody Menu menu, @PathVariable("restId") int restId) {
+        super.update(menu, restId);
+    }
 }

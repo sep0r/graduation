@@ -2,6 +2,8 @@ package org.restaurantapp.web.vote;
 
 import org.restaurantapp.model.Vote;
 import org.restaurantapp.service.VoteService;
+import org.restaurantapp.to.VoteTo;
+import org.restaurantapp.util.exception.NotFoundException;
 import org.restaurantapp.web.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,11 +18,18 @@ public abstract class AbstractVoteController {
     @Autowired
     private VoteService service;
 
-    //нужно настроить даты
-    public List<Vote> getAllForRestaurantByDate(int restId, LocalDate date) {
-        log.info("get all for restaurant {} by date {}", restId, date);
-        int userId = SecurityUtil.authUserId();
-        return service.getAllForRestaurantByDate(userId, date);
+    public VoteTo getResultByDate(LocalDate date) {
+        log.info("get result by date {}", date);
+        List<VoteTo> resultList = service.getResultByDate(date);
+        if (resultList.size() == 0){
+            throw new NotFoundException("No votes yet.");
+        }
+            return resultList.get(0);
+    }
+
+    public List<VoteTo> getNumberOfVotesForRestaurantsByDate(LocalDate date) {
+        log.info("get all for restaurants by date {}", date);
+        return service.getNumberOfVotesForRestaurantsByDate(date);
     }
 
     public void delete(int id, int userId) {
@@ -32,10 +41,10 @@ public abstract class AbstractVoteController {
         int userId = SecurityUtil.authUserId();
         Vote vote = service.get(userId, LocalDate.now());
         if (vote == null) {
-//            log.info("create vote for User {} and Restaurant {}", AuthorizedUser.get(), restaurantId);
+            log.info("create vote");
             service.save(userId, restaurantId);
         } else {
-//            log.info("update vote for User {} and Restaurant {}", AuthorizedUser.get(), restaurantId);
+            log.info("update vote");
             if (!vote.isNew()) {
                 service.update(vote, restaurantId);
             }

@@ -1,8 +1,8 @@
 package org.restaurantapp.web.vote;
 
-import org.restaurantapp.model.Vote;
+import org.restaurantapp.to.VoteTo;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
-import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -14,13 +14,16 @@ public class VoteAdminRestController extends AbstractVoteController {
     public static final String REST_URL = "/rest/admin/votes";
 
     @Override
-    @GetMapping(value = "/{restId}")
-    public List<Vote> getAllForRestaurantByDate(@PathVariable("restId") int restId,
-                                                @RequestParam @Nullable LocalDate date) {
-        return super.getAllForRestaurantByDate(restId, date);
+    @GetMapping(value = "/")
+    public List<VoteTo> getNumberOfVotesForRestaurantsByDate(@RequestParam(value = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        return super.getNumberOfVotesForRestaurantsByDate( date);
     }
 
-    //get подсчет голосов по дате
+    @Override
+    @GetMapping(value = "/result")
+    public VoteTo getResultByDate(@RequestParam(value = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        return super.getResultByDate(date);
+    }
 
     @Override
     @DeleteMapping(value = "/{id}/users/{userId}")

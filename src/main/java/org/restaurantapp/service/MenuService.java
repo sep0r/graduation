@@ -32,6 +32,10 @@ public class MenuService {
         return checkNotFoundWithId(menuRepository.get(id, restId), id);
     }
 
+    public Menu get(LocalDate date, int restId) throws NotFoundException {
+        return menuRepository.get(date, restId);
+    }
+
     public List<Menu> getAllByDate(LocalDate date) {
         return menuRepository.getAllByDate(date);
     }
@@ -42,8 +46,8 @@ public class MenuService {
 
     public void update(Menu menu, int restId) {
         Assert.notNull(menu, "menu must not be null");
-        Menu updated = get(menu.getId(), restId);
-        if (updated != null) {
+        Menu updated = get(menu.getDate(), restId);
+        if (updated.getDate() == menu.getDate()) {
             menuRepository.save(menu, restId);
         }
     }

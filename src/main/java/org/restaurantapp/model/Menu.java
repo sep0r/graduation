@@ -1,7 +1,6 @@
 package org.restaurantapp.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -25,11 +24,9 @@ public class Menu extends AbstractBaseEntity {
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
-    @JsonBackReference
-    @JsonIgnore
+    @JsonBackReference(value = "rest-menu")
     private Restaurant restaurant;
 
-    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
     @JsonManagedReference
     private List<Dish> dishes;

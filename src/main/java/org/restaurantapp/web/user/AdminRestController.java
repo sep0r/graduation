@@ -32,7 +32,7 @@ public class AdminRestController extends AbstractUserController {
         return super.getWithVotes(id);
     }
 
-    //to work only with @JsonIgnore Vote
+    //to works only with @JsonIgnore Vote
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> createWithLocation(@RequestBody User user) {
         User created = super.create(user);
