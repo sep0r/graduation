@@ -12,11 +12,11 @@ import java.net.URI;
 import static org.restaurantapp.web.SecurityUtil.authUserId;
 
 @RestController
-@RequestMapping(ProfileRestController.REST_URL)
+@RequestMapping(value = ProfileRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProfileRestController extends AbstractUserController {
     static final String REST_URL = "/rest/profile";
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping
     public User get() {
         return super.get(authUserId());
     }

@@ -32,9 +32,9 @@ public abstract class AbstractMenuController {
         return service.getAllByDate(date);
     }
 
-    public List<Menu> getAllByRestaurantId(int restaurantId){
-        log.info("get all for restaurant {} ",restaurantId);
-        return service.getAllByRestaurantId(restaurantId);
+    public List<Menu> getAllByRestaurantId(int restId){
+        log.info("get all for restaurant {} ",restaurantService.get(restId).getName());
+        return service.getAllByRestaurantId(restId);
     }
 
     public Menu get(int id, int restId) {
