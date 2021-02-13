@@ -52,7 +52,6 @@ public class ExceptionInfoHandler {
         return logAndGetErrorInfo(req, e, true, APP_ERROR);
     }
 
-
     //    https://stackoverflow.com/questions/538870/should-private-helper-methods-be-static-if-they-can-be-static
     private static ErrorInfo logAndGetErrorInfo(HttpServletRequest req, Exception e, boolean logException, ErrorType errorType) {
         Throwable rootCause = ValidationUtil.getRootCause(e);

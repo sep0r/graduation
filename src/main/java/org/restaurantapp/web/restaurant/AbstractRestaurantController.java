@@ -54,6 +54,4 @@ public abstract class AbstractRestaurantController {
         log.info("update " + restaurant);
         service.update(restaurant);
     }
-
-
 }

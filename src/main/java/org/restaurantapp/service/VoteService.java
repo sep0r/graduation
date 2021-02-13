@@ -5,7 +5,7 @@ import org.restaurantapp.repository.VoteRepository;
 import org.restaurantapp.repository.datajpa.CrudRestaurantRepository;
 import org.restaurantapp.repository.datajpa.CrudUserRepository;
 import org.restaurantapp.to.VoteTo;
-import org.restaurantapp.util.TimeUtil;
+import org.restaurantapp.util.DateTimeUtil;
 import org.restaurantapp.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,7 +57,7 @@ public class VoteService {
 
     public Vote update(Vote vote, int restId) throws NotFoundException {
         Assert.notNull(vote, "vote must not be null");
-        TimeUtil.checkVote();
+        DateTimeUtil.checkVote();
         vote.setRestaurant(crudRestaurantRepository.getOne(restId));
         return checkNotFoundWithId(voteRepository.save(vote), vote.getId());
     }

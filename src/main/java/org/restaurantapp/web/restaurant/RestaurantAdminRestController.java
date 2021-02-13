@@ -15,7 +15,6 @@ public class RestaurantAdminRestController extends AbstractRestaurantController 
 
     public static final String REST_URL = "/rest/admin/restaurants";
 
-    //to work only with @JsonIgnore Vote
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> createWithLocation(@RequestBody Restaurant restaurant) {
         Restaurant created = super.create(restaurant);
@@ -39,7 +38,6 @@ public class RestaurantAdminRestController extends AbstractRestaurantController 
         super.delete(id);
     }
 
-    //to work only with @JsonIgnore Menu
     @Override
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void update(@Valid @RequestBody Restaurant restaurant, @PathVariable("id") int id) {

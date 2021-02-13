@@ -27,7 +27,6 @@ public class ProfileRestController extends AbstractUserController {
         super.delete(authUserId());
     }
 
-    //to works only with @JsonIgnore Vote
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<User> register(@RequestBody User user) {

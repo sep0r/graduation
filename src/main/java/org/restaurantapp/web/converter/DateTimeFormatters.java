@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-import static org.restaurantapp.util.TimeUtil.parseLocalDate;
+import static org.restaurantapp.util.DateTimeUtil.parseLocalDate;
 
 
 public class DateTimeFormatters {

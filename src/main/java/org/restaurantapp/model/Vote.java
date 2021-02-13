@@ -3,7 +3,7 @@ package org.restaurantapp.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.restaurantapp.util.TimeUtil;
+import org.restaurantapp.util.DateTimeUtil;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -16,7 +16,7 @@ public class Vote extends AbstractBaseEntity {
 
     @Column(name = "date", nullable = false)
     @NotNull
-    @DateTimeFormat(pattern = TimeUtil.DATE_PATTERN)
+    @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate date;
 
     @ManyToOne(fetch = FetchType.LAZY)

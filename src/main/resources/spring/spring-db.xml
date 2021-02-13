@@ -23,16 +23,6 @@
           p:url="${database.url}"
           p:username="${database.username}"
           p:password="${database.password}"/>
-    <!--
-    For postgres driver logging
-    It uses java.util.logging and logged via jul-to-slf4j bridge
-    https://stackoverflow.com/a/27296470/548473
-    -->
-
-<!--    Проверить позже урок 5-->
-<!--    <bean class="org.springframework.beans.factory.config.MethodInvokingBean">-->
-<!--        <property name="staticMethod" value="org.slf4j.bridge.SLF4JBridgeHandler.install"/>-->
-<!--    </bean>-->
 
     <context:component-scan base-package="org.restaurantapp.repository.datajpa"/>
     <jpa:repositories base-package="org.restaurantapp.repository.datajpa"/>
@@ -40,7 +30,6 @@
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
           p:dataSource-ref="dataSource"
           p:packagesToScan="org.restaurantapp.**.model">
-        <!--p:persistenceUnitName="persistenceUnit">-->
 
         <property name="jpaPropertyMap">
             <map>
